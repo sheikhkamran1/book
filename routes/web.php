@@ -40,7 +40,7 @@ Route::post('delete-cart-item',[PageController::class, 'deleteproduct']);
 Route::post('update_cart',[PageController::class, 'update-cart']);
 
 Route::middleware(['auth'])->group(function (){
-Route::get('/cart', [PageController::class,'cart']);
+    Route::get('/cart', [PageController::class,'cart']);
 Route::get('/checkout', [PageController::class,'checkout']);
 Route::post('/place_order', [PageController::class,'place_order']);
 });
@@ -60,7 +60,6 @@ Route::resource('contact',ContactController::class);
 //frontend
 Route::get('/home',[PageController::class,'index']);
 Route::post('/contacts_store',[PageController::class,'store']);
-// Route::get('/contacts_store',[PageController::class,'store']);
 // Route::get('/message',[PageController::class,'message']);
 Route::get('/contact',[PageController::class,'contact']);
 Route::get('/subject',[PageController::class,'subject']);
@@ -76,6 +75,7 @@ Route::get('/news', [PageController::class,'news']);
 Route::get('/cart_list', [PageController::class,'cart_list']);
 Route::get('/add-rating', [RatingController::class,'add']);
 Route::get('/my_cart', [PageController::class,'my_cart']);
+Route::post('/rating',[RatingController::class,'store'])->name('rating');
+
 // Route::get('/category/{slug}', [PageController::class,'viewcategory']);
 // Route::get('/category/{cate_slug}/{prod_slug}', [PageController::class,'productview']);
-

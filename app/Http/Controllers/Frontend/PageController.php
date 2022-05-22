@@ -19,11 +19,87 @@ class PageController extends Controller
 {
     public function index()
     {
+        
+        //  return "ss";
+        $setting = Setting::first();
+        $category = Category::all();
+        $rating = Rating::all();
+        $book = Book::all();
+        return view('frontend.pages.home',compact('category','setting','book','rating'));
+    }
+
+    //-------------------------------------- Contact page -----------------------------------------//
+    public function contact()
+    {
+        return view('frontend.pages.contact');
+    }
+     
+    public function store(Request $request)
+    {
+        // return $request;
+        // dd(Auth::user());
+        if(Auth::check())
+        {
+        dd(Auth::user());
+         
+             $contact_stores = new Contact_stores();
+             $contact_stores->user_id = Auth::id();
+             $contact_stores->email = $request->email;
+             $contact_stores->description = $request->description;
+             $contact_stores->save();
+             $request->session()->flash('message','Saved Successfully');
+             return redirect()->back();
+        }  
+        else{
+            return redirect('/contact');
+        }
+    }
+    //-------------------------------------- Contact page ends-----------------------------------------//
+
+    //-------------------------------------- About page -----------------------------------------//
+    public function about()
+    {
         $setting = Setting::first();
         $category = Category::all();
         $book = Book::all();
-        return view('frontend.pages.home',compact('category','setting','book'));
+        return view('frontend.pages.about',compact('book','setting','category'));
     }
+    //-------------------------------------- About page ends-----------------------------------------//
+
+    //-------------------------------------- Collections page -----------------------------------------//
+    public function collections()
+    {
+        return view('frontend.pages.collections');
+    }
+    //-------------------------------------- Collections page -----------------------------------------//
+
+    //-------------------------------------- Mycart page -----------------------------------------//
+    public function my_cart()
+    {
+        $cartitems = cart::where('user_id',Auth::id())->get();
+        return view('frontend.pages.my_cart', compact('cartitems'));
+    }
+    //-------------------------------------- Mycart page -----------------------------------------//
+
+    //-------------------------------------- Checkout page -----------------------------------------//
+    public function checkout()
+    {
+        $old_cartitems = cart::where('user_id',Auth::id())->get();
+        foreach($old_cartitems as $cartitem)
+        {
+            if(!Book::where('id',$cartitem->prod_id)->where('qty','>=',$cartitem->prod_qty)->exists())
+            {
+                $removeItem = cart::where('user_id',Auth::id())->where('prod_id',$cartitem->prod_id)->first();
+                $removeItem->delete();
+            }
+        }
+        $cartitems = cart::where('user_id',Auth::id())->get();
+
+        return view('frontend.pages.checkout', compact('cartitems'));
+    }
+    //-------------------------------------- Checkout page -----------------------------------------//
+
+
 
     // public function viewcategory($slug)
     // {
@@ -39,40 +115,32 @@ class PageController extends Controller
     //     }
     // }
 
-    public function collections()
-    {
-        return view('frontend.pages.collections');
-    }
 
-
-    public function contact()
-    {
-        return view('frontend.pages.contact');
-    }
+   
     
-    public function store(Request $request)
-    {
+//     public function store(Request $request)
+//     {
 
-        if(Auth::check())
-        {
-             $contact_stores = new Contact_stores();
-             $contact_stores->user_id = Auth::id();
-             $contact_stores->email = $request->email;
-             $contact_stores->description = $request->description;
-             $contact_stores->save();
-             $request->session()->flash('message','Saved Successfully');
-             return redirect()->back();
-        }  
-        else{
-            return redirect('/contact');
-        }
-    }
+//         if(Auth::check())
+//         {
+//              $contact_stores = new Contact_stores();
+//              $contact_stores->user_id = Auth::id();
+//              $contact_stores->email = $request->email;
+//              $contact_stores->description = $request->description;
+//              $contact_stores->save();
+//              $request->session()->flash('message','Saved Successfully');
+//              return redirect()->back();
+//         }  
+//         else{
+//             return redirect('/contact');
+//         }
+//     }
 
-    public function popular()
-    {
-        $setting = Setting::first();
-        return view('frontend.pages.popular',compact('setting'));
-    }
+//     public function popular()
+//     {
+//         $setting = Setting::first();
+//         return view('frontend.pages.popular',compact('setting'));
+//     }
 
     public function publications()
     {
@@ -112,13 +180,13 @@ class PageController extends Controller
         return view('frontend.pages.borrow_book',compact('book','setting','category'));
     }
 
-    public function about()
-    {
-        $setting = Setting::first();
-        $category = Category::all();
-        $book = Book::all();
-        return view('frontend.pages.about',compact('book','setting','category'));
-    }
+    // public function about()
+    // {
+    //     $setting = Setting::first();
+    //     $category = Category::all();
+    //     $book = Book::all();
+    //     return view('frontend.pages.about',compact('book','setting','category'));
+    // }
 
     public function news()
     {
@@ -128,12 +196,6 @@ class PageController extends Controller
         return view('frontend.pages.news',compact('book','setting','category'));
     }
 
-    // public function ()
-    // {
-    //     $category = Category::all();
-    //     $book = Book::all();
-    //     return view('frontend.pages.news',compact('book','category'));
-    // }
 
     public function cart()
     {
@@ -149,10 +211,12 @@ class PageController extends Controller
 
         if(Auth::check())
         {
+            
             $prod_check = Book::where('id',$book_id)->first();
-
+//  dd ($prod_check);
             if($prod_check)
             {
+                dd (Cart::all());
                 if(Cart::where('prod_id',$book_id)->where('user_id'.Auth::id()))
                 {
                     return response()->json(['status'=> $prod_check->name."Already added to cart"]);
@@ -163,6 +227,8 @@ class PageController extends Controller
                     $cartItem->user_id = Auth::id();
                     $cartItem->prod_qty = $book_qty;
                     $cartItem->save();
+                    // dd($cartItem);
+
                     return response()->json(['status'=> $prod_check->name."Added to cart"]);
                 }
               
@@ -172,12 +238,6 @@ class PageController extends Controller
         {
             return response()->json(['status' => "Login to continue"]);
         }
-    }
-
-    public function my_cart()
-    {
-        $cartitems = cart::where('user_id',Auth::id())->get();
-        return view('frontend.pages.my_cart', compact('cartitems'));
     }
 
     
@@ -218,21 +278,6 @@ class PageController extends Controller
     }
 
     
-    public function checkout()
-    {
-        $old_cartitems = cart::where('user_id',Auth::id())->get();
-        foreach($old_cartitems as $cartitem)
-        {
-            if(!Book::where('id',$cartitem->prod_id)->where('qty','>=',$cartitem->prod_qty)->exists())
-            {
-                $removeItem = cart::where('user_id',Auth::id())->where('prod_id',$cartitem->prod_id)->first();
-                $removeItem->delete();
-            }
-        }
-        $cartitems = cart::where('user_id',Auth::id())->get();
-
-        return view('frontend.pages.checkout', compact('cartitems'));
-    }
 
     
     public function place_order(Request $request)

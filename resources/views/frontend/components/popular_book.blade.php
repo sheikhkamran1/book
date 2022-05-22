@@ -565,7 +565,7 @@
         </div>
 
         <div class="container regular" style="background-color: white">
-            @foreach ($book as $book)
+            @foreach ($rating as $rating)
             <div class="row-card-course">
                 
                 <div class="course-card">
@@ -574,13 +574,14 @@
                             <a href="/cart">
                                 <img class="not-img img-res"
                                     src="https://asmitapublication.com/wp-content/uploads/2020/10/front-principles-of-physics-ASMITA-330x452.jpg">
+                                
                             </a>
                         </div>
 
                         <div class="caption mt-5" style="width: 100%;">
                             <div class="course-title">
                                 <h3 class="course-title-heading">
-                                    <a class="not-a" href="/cart">{{$book->name}}</a>
+                                    <a class="not-a" href="/cart">{{$rating->book_id}}</a>
                                 </h3>
                             </div>
                             <div class="course-fav-cost">

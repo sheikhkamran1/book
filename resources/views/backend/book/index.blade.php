@@ -24,7 +24,7 @@
                          <td><img src=" {{ $book->image }} " width="40" alt=""></td>
                          <td>{{$book->name}}</td>
                          <td>{{$book->book_price}}</td>
-                         <td>{{$book->category->name}}</td>
+                         {{-- <td>{{$book->category->name}}</td> --}}
                          <td>{!!Str::limit($book->description,40)!!}</td>
                          <td>
                              <a href="book/{{$book->id}}/edit" class="badge bg-primary">Edit</a>

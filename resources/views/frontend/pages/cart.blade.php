@@ -70,6 +70,8 @@
 
                     <div class="row">
                         <div class="col-md-3">
+                            <form action="{{ url('/cart') }}" method="post">
+                                @csrf
                             <input type="hidden" value="{{ $book->id }}" class="prod_id">
                             <label for="Quantity" style="font-weight: 500">Quantity</label>
                             <div class="input-group text-center mb-3" style="width: 130px">
@@ -77,7 +79,7 @@
                                 <input type="text" name="quantity" class="form-control  qty-input text-center" value="1">
                                 <button class="input-group-text increment-btn">+</button>
                             </div>
-
+                            </form>
                         </div>
                     </div>
                  
@@ -122,6 +124,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" name="book_id" value="{{ $book->id }}">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Submit</button>       

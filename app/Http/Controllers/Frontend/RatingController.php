@@ -56,7 +56,8 @@ class RatingController extends Controller
      */
     public function index()
     {
-        //
+        // $rating = Rating::all();
+        // return view("frontend.components.popular_book",compact('rating'));
     }
 
     /**
@@ -77,7 +78,13 @@ class RatingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request;
+        $rating = new Rating();
+        $rating->user_id = Auth::user()->name;
+        $rating->book_id = $request->book_id;
+        $rating->stars_rated = $request->product_rating;
+        $rating->save();
+        return redirect('/home');
     }
 
     /**

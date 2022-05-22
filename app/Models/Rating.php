@@ -15,4 +15,10 @@ class Rating extends Model
         'prod_id',
         'stars_rated'
     ];
+
+    public function book()
+    {
+        return $this->hasMany(Book::class);
+    }
+
 }

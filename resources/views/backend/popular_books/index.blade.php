@@ -18,7 +18,7 @@
                             <th>Action</th>
                         </tr>
 
-                        {{-- @foreach ($popular_books as $popular_books)
+                        @foreach ($popular_books as $popular_books)
                         <tr>
                          <td>{{$popular_books->id}}</td>
                          <td><img src=" {{ $popular_books->image }} " width="40" alt=""></td>
@@ -30,7 +30,7 @@
                              <a href="popular_books/{{$popular_books->id}}"  class="badge bg-danger">Delete</a>
                          </td>
                      </tr>
-                        @endforeach --}}
+                        @endforeach
                     </table>
                 </div>
             </div>
