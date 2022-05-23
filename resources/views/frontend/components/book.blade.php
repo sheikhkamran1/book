@@ -560,28 +560,28 @@
     
     <div class="container py-3 ">
         <div class="card-header my-3 bg-light">
-        <h3>Category</h3>
+        <h3>book</h3>
         <p>In Particular, the explicit examination of primary element</p>
         </div>
 
         <div class="container regular" style="background-color: white">
-            @foreach ($category as $category)
+            @foreach ($book as $book)
             <div class="row-card-course">
                 
                 <div class="course-card">
                     <div class="thumbnail">
                         <div class="course-card-image">
-                            {{-- <a href="{{ url('category/'.$category->slug.'/'.$prod->slug)}}"> --}}
-                                <a href="/category">
+                            {{-- <a href="{{ url('book/'.$book->slug.'/'.$prod->slug)}}"> --}}
+                                <a href="/cart">
                                 <img class="not-img img-res"
-                                    src="{{ $category->image }}">
+                                    src="{{ $book->image }}">
                             </a>
                         </div>
 
                         <div class="caption mt-5" style="width: 100%;">
                             <div class="course-title">
                                 <h3 class="course-title-heading">
-                                    <a class="not-a" href="/cart">{{$category->name}}</a>
+                                    <a class="not-a" href="/cart">{{$book->name}}</a>
                                 </h3>
                             </div>
                             <div class="course-fav-cost">

@@ -39,6 +39,7 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
+    //   dd($request->all());
         $book = new Book();
         $book->name = $request->name;
         $book->author = $request->author;

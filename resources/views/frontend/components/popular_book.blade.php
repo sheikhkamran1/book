@@ -589,8 +589,7 @@
                                     <small>Rating</small>
                                     <br>
                                     <div class="course-rating">
-                                        <span><span> ☆</span><span class="active"> ☆</span><span>
-                                                ☆</span></span>
+                                        <span>{{$rating->stars_rated}}</span>
                                     </div>
                                 </div>
                                 <div class="course-fav-price ">

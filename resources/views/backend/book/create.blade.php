@@ -14,7 +14,8 @@
                               <p class="text-success"> {{ session('message') }} </p>
                           </div>
                       @endif
-                    <form action="/book" method="post">
+                      {{-- If your form iclude files or images thatn you should add enctype. --}}
+                    <form action="/book" method="post" enctype="multipart/form-data">
                         @csrf
                 
                         <div class="form-group">
