@@ -3,7 +3,7 @@
     <div class="container-fluid py-3 mb-4 bg-warning border-top">
 
         <!--------------------------------------- Temporary Action/delete after test ---------------------------->
-{{-- 
+
         <div class="container">
             <h5>Home / MyCart</h5>
         </div>
@@ -47,9 +47,9 @@
                 <a href="/checkout" class="btn btn-outline-success float-end">Proceed to checkout</a>
             </div>
         </div>
-    </div> --}}
+    </div>
     <!------------------------------------------- Temporary Action/delete after test -------------------------- -->
-    <div class="container-fluid py-3 mb-4 bg-warning border-top">
+    {{-- <div class="container-fluid py-3 mb-4 bg-warning border-top">
     <div class="container">
         <h5>Home / MyCart</h5>
     </div>
@@ -106,5 +106,5 @@
                 <a href="/home">Continue Shopping</a>
             @endif
         </div>
-    </div>
+    </div> --}}
 @endsection
