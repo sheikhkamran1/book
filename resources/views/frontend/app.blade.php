@@ -139,8 +139,8 @@ jQuery(document).ready(function($){
       e.preventDefault();
       var book_id = $(this).closest('.product_data').find('.prod_id').val();
       var book_qty = $(this).closest('.product_data').find('.qty-input').val();
-      alert(book_id);
-      alert(book_qty);
+      // alert(book_id);
+      // alert(book_qty);
       $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

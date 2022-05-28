@@ -10,25 +10,27 @@
     </div>
     <div class="container py-5">
         <div class="card shadow product_data">
+          
+
+            @foreach ($cartitems as $item)
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS92KmFlD4i0QHrqaYh9F-8nDMNB0NstefhSw&usqp=CAU"
-                            alt="" width="50px">
+                        <img src="{{$item->book->image}}"
+                            alt="" height="80">
                     </div>
                     <div class="col-md-3">
-                        <h3>science</h3>
+                        <h3>{{$item->book->name}}</h3>
                     </div>
                     <div class="col-md-2">
-                        <h5>Rs:700</h5>
+                        <h5>Rs: {{$item->book->book_price}}</h5>
                     </div>
                     <div class="col-md-3">
                         <input type="hidden" class="prod_id" value="1">
-                        <input type="hidden" class="prod_id" value="">
                         <label for="Quantity">Quantity</label>
                         <div class="input-group text-center mb-3" style="width: 130px">
                             <button class="input-group-text decrement-btn">-</button>
-                            <input type="text" name="quantity" class="form-control  qty-input text-center" value="4">
+                            <input type="text" name="quantity" class="form-control  qty-input text-center" value="{{$item->prod_qty}}">
                             <button class="input-group-text increment-btn">+</button>
                         </div>
                     </div>
@@ -42,6 +44,8 @@
                 <hr>
 
             </div>
+            @endforeach
+
             <div class="card-footer">
                 <h6 style="color: black">Total Price: 700</h6>
                 <a href="/checkout" class="btn btn-outline-success float-end">Proceed to checkout</a>

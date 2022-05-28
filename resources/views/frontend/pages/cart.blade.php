@@ -82,12 +82,14 @@
                                         value="1">
                                     <button class="input-group-text increment-btn">+</button>
                                 </div>
+                               
                             </form>
                         </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary addToCartBtn">Add to cart <i
-                            class="fas fa-shopping-cart"></i></button>
+                        class="fas fa-shopping-cart"></i></button>
+                        
                     <button type="submit" class="btn btn-success">Add to Wishlist <i class="fas fa-heart"></i></button>
                 </div>
             </div>
