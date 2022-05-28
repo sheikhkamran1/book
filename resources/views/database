@@ -1,0 +1,461 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: May 28, 2022 at 08:24 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `book`
+--
+CREATE DATABASE IF NOT EXISTS `book` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `book`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `books`
+--
+
+DROP TABLE IF EXISTS `books`;
+CREATE TABLE IF NOT EXISTS `books` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `author` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `publication` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pages` int(11) NOT NULL,
+  `book_price` int(11) NOT NULL,
+  `issue_price` int(11) NOT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `view` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `books`
+--
+
+INSERT INTO `books` (`id`, `image`, `name`, `author`, `publication`, `description`, `pages`, `book_price`, `issue_price`, `category_id`, `view`, `created_at`, `updated_at`) VALUES
+(6, 'images/1653272550197777_1_ftc.jpg', 'biology', 'R.M. Shrestha', 'Aleph Book Company', NULL, 300, 500, 12, 1, 0, '2022-05-22 20:37:30', '2022-05-22 20:37:30'),
+(8, 'images/1653272660bfce8060a706f050a00fb27d6f5e2ba5.jpg', 'Math', 'pythagorous', 'london', '<p>drfg</p>', 600, 300, 13, 3, 0, '2022-05-22 20:39:20', '2022-05-22 20:39:20'),
+(9, 'images/165327306451MfkOZTmrL.jpg', 'Nobel', 'Stephen Hawking', 'oxford', '<p>sda</p>', 600, 900, 15, 4, 0, '2022-05-22 20:46:04', '2022-05-22 20:46:04'),
+(10, 'images/1653273697front-principles-of-physics-ASMITA-330x452.jpg', 'Physics', 'Stephen Hawking', 'Aleph Book Company', '<p>sd</p>', 600, 12, 13, 1, 0, '2022-05-22 20:56:37', '2022-05-22 20:56:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `borrows`
+--
+
+DROP TABLE IF EXISTS `borrows`;
+CREATE TABLE IF NOT EXISTS `borrows` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `total_amount` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `borrow_details`
+--
+
+DROP TABLE IF EXISTS `borrow_details`;
+CREATE TABLE IF NOT EXISTS `borrow_details` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `borrow_id` bigint(20) UNSIGNED NOT NULL,
+  `book_id` bigint(20) UNSIGNED NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `rate` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `expire_date` date NOT NULL,
+  `is_book_returned` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carts`
+--
+
+DROP TABLE IF EXISTS `carts`;
+CREATE TABLE IF NOT EXISTS `carts` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `prod_id` bigint(20) UNSIGNED NOT NULL,
+  `prod_qty` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`id`, `user_id`, `prod_id`, `prod_qty`, `created_at`, `updated_at`) VALUES
+(12, 1, 6, '20', '2022-05-28 05:28:46', '2022-05-28 05:28:46');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `image`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'images/1653104893sci-10.jpg', 'science', '2022-05-20 22:03:13', '2022-05-20 22:03:13'),
+(2, 'images/16531050729780636114470.jpg', 'Geography', '2022-05-20 22:06:12', '2022-05-20 22:06:12'),
+(3, 'images/1653105305bfce8060a706f050a00fb27d6f5e2ba5.jpg', 'Math', '2022-05-20 22:10:05', '2022-05-20 22:10:05'),
+(4, 'images/165310534451MfkOZTmrL.jpg', 'Nobel', '2022-05-20 22:10:44', '2022-05-20 22:10:44'),
+(5, 'images/1653105382it-9781501175466_hr.jpg', 'Horror', '2022-05-20 22:11:22', '2022-05-20 22:11:22'),
+(6, 'images/1653105401TheIslandOfAdventure.jpg', 'Adventure', '2022-05-20 22:11:41', '2022-05-20 22:11:41');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contact_stores`
+--
+
+DROP TABLE IF EXISTS `contact_stores`;
+CREATE TABLE IF NOT EXISTS `contact_stores` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `contact_stores`
+--
+
+INSERT INTO `contact_stores` (`id`, `user_id`, `email`, `description`, `created_at`, `updated_at`) VALUES
+(1, 1, 'ssss', 'ss', '2022-05-21 03:30:36', '2022-05-21 03:30:36'),
+(2, 1, 'ssss', 'sss', '2022-05-21 03:36:40', '2022-05-21 03:36:40'),
+(3, 1, 'kamransheikh786786@gmail.com', 'desdfsdf', '2022-05-21 03:53:27', '2022-05-21 03:53:27'),
+(4, 1, 'dsfsdsdfsdf', 'asdsdf', '2022-05-21 03:53:37', '2022-05-21 03:53:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `failed_jobs`
+--
+
+DROP TABLE IF EXISTS `failed_jobs`;
+CREATE TABLE IF NOT EXISTS `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messages`
+--
+
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE IF NOT EXISTS `messages` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+DROP TABLE IF EXISTS `migrations`;
+CREATE TABLE IF NOT EXISTS `migrations` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_resets_table', 1),
+(3, '2019_08_19_000000_create_failed_jobs_table', 1),
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2021_12_31_083155_create_settings_table', 1),
+(6, '2021_12_31_100940_create_categories_table', 1),
+(7, '2022_01_11_055208_create_books_table', 1),
+(8, '2022_01_11_055457_create_borrows_table', 1),
+(9, '2022_01_11_060619_create_borrow_details_table', 1),
+(10, '2022_01_11_060755_create_reserves_table', 1),
+(11, '2022_01_21_025948_create_popular_books_table', 1),
+(12, '2022_01_24_182627_create_ratings_table', 1),
+(13, '2022_01_25_053030_create_carts_table', 1),
+(14, '2022_01_25_081004_create_contact_stores_table', 1),
+(15, '2022_01_25_165246_create_messages_table', 1),
+(16, '2022_01_31_101242_create_order_items_table', 1),
+(17, '2022_01_31_162951_create_order_details_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_details`
+--
+
+DROP TABLE IF EXISTS `order_details`;
+CREATE TABLE IF NOT EXISTS `order_details` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `order_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pin_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items`
+--
+
+DROP TABLE IF EXISTS `order_items`;
+CREATE TABLE IF NOT EXISTS `order_items` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `order_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `prod_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `qty` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_resets`
+--
+
+DROP TABLE IF EXISTS `password_resets`;
+CREATE TABLE IF NOT EXISTS `password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  KEY `password_resets_email_index` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `personal_access_tokens`
+--
+
+DROP TABLE IF EXISTS `personal_access_tokens`;
+CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_used_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
+  KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `popular_books`
+--
+
+DROP TABLE IF EXISTS `popular_books`;
+CREATE TABLE IF NOT EXISTS `popular_books` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `author` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `publication` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pages` int(11) NOT NULL,
+  `book_price` int(11) NOT NULL,
+  `issue_price` int(11) NOT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `view` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ratings`
+--
+
+DROP TABLE IF EXISTS `ratings`;
+CREATE TABLE IF NOT EXISTS `ratings` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `book_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stars_rated` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ratings`
+--
+
+INSERT INTO `ratings` (`id`, `user_id`, `book_id`, `stars_rated`, `created_at`, `updated_at`) VALUES
+(1, 'kamran sheikh', '1', '3', '2022-05-20 22:19:31', '2022-05-20 22:19:31'),
+(2, 'kamran sheikh', '1', '5', '2022-05-22 10:05:39', '2022-05-22 10:05:39'),
+(3, 'kamran sheikh', '1', '2', '2022-05-22 10:06:10', '2022-05-22 10:06:10'),
+(4, 'kamran sheikh', '1', '4', '2022-05-22 10:06:27', '2022-05-22 10:06:27'),
+(5, 'kamran sheikh', '1', '3', '2022-05-22 10:06:52', '2022-05-22 10:06:52'),
+(6, 'kamran sheikh', '1', '3', '2022-05-22 10:07:05', '2022-05-22 10:07:05'),
+(7, 'kamran sheikh', '6', '5', '2022-05-23 08:25:45', '2022-05-23 08:25:45'),
+(8, 'kamran sheikh', '6', '3', '2022-05-23 11:15:36', '2022-05-23 11:15:36'),
+(9, 'kamran sheikh', '6', '5', '2022-05-28 04:39:04', '2022-05-28 04:39:04'),
+(10, 'kamran sheikh', '6', '3', '2022-05-28 06:51:19', '2022-05-28 06:51:19');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reserves`
+--
+
+DROP TABLE IF EXISTS `reserves`;
+CREATE TABLE IF NOT EXISTS `reserves` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `forDate` date NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `book_id` bigint(20) UNSIGNED NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remarks` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `settings`
+--
+
+DROP TABLE IF EXISTS `settings`;
+CREATE TABLE IF NOT EXISTS `settings` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contact` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `regno` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`id`, `name`, `address`, `contact`, `email`, `regno`, `logo`, `created_at`, `updated_at`) VALUES
+(1, 'Bombay Brummell Inc.', 'muzaffarpur', '9807062070', 'Kamransheikh786786@gmail.com', '616161', 'images/1653104659photo_2022-05-10_21-38-35.jpg', '2022-05-20 21:59:19', '2022-05-20 21:59:19');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_type` enum('admin','guest') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_email_unique` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `user_type`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'kamran sheikh', 'Kamransheikh786786@gmail.com', NULL, '$2y$10$gyzcmUOkgQ0/PX/Gv5.V6OlurbaesRCLpXNX9CowQuXxkLbr03Eea', 'admin', NULL, '2022-05-20 21:57:29', '2022-05-20 21:57:29');
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
